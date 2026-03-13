@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Senanis">
+  <defs>
+    <linearGradient id="senanisGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2f5f95" />
+      <stop offset="100%" stop-color="#c38748" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#f5efe3" />
+  <path
+    d="M18 18c8-5 20-5 28 0M18 32c8 5 20 5 28 0M18 46c8-5 20-5 28 0"
+    fill="none"
+    stroke="url(#senanisGradient)"
+    stroke-linecap="round"
+    stroke-width="4"
+  />
+</svg>
