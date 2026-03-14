@@ -2,7 +2,6 @@ function Ht(t,e,n){return(e=zt(e))in t?Object.defineProperty(t,e,{value:n,enumer
     <div class="momentle-shell">
       <p class="momentle-kicker">A weekly reflection.</p>
       <p class="momentle-date">Week of ${st(o).toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}</p>
-      <p class="momentle-instructions">Arrange the words into an order that feels right, then reveal the Moment.</p>
       <div class="momentle-tiles" aria-label="Arrange the words"></div>
       <button class="pill-button pill-button--solid" type="button">Reveal Moment</button>
       <div class="momentle-reveal" hidden></div>
