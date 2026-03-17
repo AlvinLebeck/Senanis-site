@@ -7,7 +7,7 @@ function W(e){const t=e.trim().split(/\s+/);if(t.length!==6)throw new Error(`Eac
       </div>
       <ol class="field-list"></ol>
       <div class="field-controls" aria-label="Rotate word positions"></div>
-      <p class="field-meta">Rotate any position, reset, randomize, or wander back toward the field's base form.</p>
+      <p class="field-meta">Rotate any position, reset, randomize, or wander back to the field's base form.</p>
       <div class="field-actions">
         <button class="pill-button" data-action="reset" type="button">Reset</button>
         <button class="pill-button" data-action="randomize" type="button">Randomize</button>
