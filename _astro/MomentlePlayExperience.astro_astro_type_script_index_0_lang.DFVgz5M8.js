@@ -1,0 +1,23 @@
+import{D as R,p as B,n as D,s as $,g as U,S as F,b as T,a as j,w as z,c as G}from"./momentle.CM63doDy.js";const p=6,K="◇",J="◆",f={state:"momentle_play_state_v1",week:"momentle_play_week_v1"};function Z(t,r){try{localStorage.setItem(t,r)}catch(n){console.warn(`Unable to save ${t}`,n)}}function X(){try{const t=j(T());if(localStorage.getItem(f.week)!==t)return localStorage.setItem(f.week,t),localStorage.removeItem(f.state),null;const n=localStorage.getItem(f.state);return n?JSON.parse(n):null}catch(t){return console.warn("Unable to restore Momentle play state",t),null}}function Y(t,r){return t.map((n,l)=>n===r[l])}function V(t,r){return t.every((n,l)=>n===r[l])}function Q(t){return t.map(r=>r?J:K).join("")}function ee({puzzleNumber:t,guessCount:r,history:n,solved:l}){const y=l?`${r}/${p}`:`X/${p}`,g=n.map(Q).join(`
+`);return`Momentle #${t} ${y}
+
+${g}
+
+A Moment revealed through order.`}function te(t){const r=JSON.parse(t.dataset.moments||"[]"),n=t.dataset.weekZero||R,l=T(),{puzzleNumber:y,rawText:g}=B(r,n,l),i=D(g).split(/\s+/),o=X();let c=o&&Array.isArray(o.order)&&o.order.length===i.length?o.order.slice():$(i);c.join(" ")===i.join(" ")&&(c=$(i));let h=Number.isInteger(o?.guessCount)?o.guessCount:0,s=o?.solved===!0,a=o?.failed===!0,u=Array.isArray(o?.lastCheck)?o.lastCheck.slice():null,v=Array.isArray(o?.guessHistory)?o.guessHistory.filter(e=>Array.isArray(e)&&e.length===i.length):[];t.innerHTML=`
+    <div class="momentle-shell">
+      <p class="momentle-kicker">Play</p>
+      <p class="momentle-date">Week of ${U(l).toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})} · Momentle #${y}</p>
+      <p class="momentle-instructions">Arrange the six words, then submit to check which positions are correct.</p>
+      <p class="momentle-status" aria-live="polite"></p>
+      <p class="momentle-remaining"></p>
+      <div class="momentle-tiles" aria-label="Arrange the words"></div>
+      <div class="momentle-actions">
+        <button class="pill-button pill-button--solid" type="button">Submit</button>
+        <button class="pill-button momentle-share-button" type="button" hidden>Share</button>
+      </div>
+      <div class="momentle-reveal" hidden></div>
+    </div>
+  `;const d=t.querySelector(".momentle-tiles"),k=t.querySelector(".pill-button--solid"),E=t.querySelector(".momentle-share-button"),b=t.querySelector(".momentle-status"),_=t.querySelector(".momentle-remaining"),A=t.querySelector(".momentle-reveal");function w(){Z(f.state,JSON.stringify({order:c,guessCount:h,solved:s,failed:a,lastCheck:u,guessHistory:v}))}function N(){d.innerHTML="",c.forEach(e=>{const m=document.createElement("div");m.className="momentle-tile",m.textContent=e,d.appendChild(m)}),x()}function P(){const e=Math.max(0,p-h);_.textContent=s||a?"":`Guesses remaining: ${e}`}function x(){Array.from(d.children).forEach((e,m)=>{const M=!!u?.[m];e.classList.toggle("momentle-tile-correct",M),M?(e.style.background="rgba(141, 184, 112, 0.28)",e.style.borderColor="rgba(109, 148, 84, 0.7)",e.style.boxShadow="0 10px 24px rgba(109, 148, 84, 0.12)"):(e.style.removeProperty("background"),e.style.removeProperty("border-color"),e.style.removeProperty("box-shadow"))})}function W(){u=null,Array.from(d.children).forEach(e=>{e.classList.remove("momentle-tile-correct"),e.style.removeProperty("background"),e.style.removeProperty("border-color"),e.style.removeProperty("box-shadow")})}function O(){const e=z(G(g.replace(/[.!?]\s*$/,"")));A.innerHTML=`
+      <div class="momentle-label">The Moment</div>
+      <div class="momentle-line">${e}</div>
+    `,A.hidden=!1}function H(){const e=s||a;E.hidden=!e||!navigator.share,k.hidden=e}function C(){q.option("disabled",!0),k.disabled=!0}function S(){if(P(),H(),s){b.textContent=`Solved in ${h}/${p} guesses.`;return}if(a){b.textContent="No guesses left.",O();return}if(u){const e=u.filter(Boolean).length;b.textContent=`${e} of ${i.length} words are in the correct position.`;return}b.textContent=""}N(),S(),w();const q=F.create(d,{animation:150,ghostClass:"momentle-tile-ghost",chosenClass:"momentle-tile-chosen",dragClass:"momentle-tile-drag",forceFallback:!0,onEnd(){if(s||a){C();return}c=Array.from(d.children).map(e=>e.textContent),W(),S(),w()}});function I(){s||a||(c=Array.from(d.children).map(e=>e.textContent),h+=1,u=Y(c,i),v=[...v,u.slice()],s=V(c,i),a=!s&&h>=p,x(),(s||a)&&C(),S(),w())}k.addEventListener("click",I),E.addEventListener("click",async()=>{if(!navigator.share)return;const e=ee({puzzleNumber:y,guessCount:h,history:v,solved:s});try{await navigator.share({title:`Momentle #${y}`,text:e})}catch(m){m?.name!=="AbortError"&&console.warn("Unable to share Momentle result",m)}}),(s||a)&&(C(),S())}const L=document.querySelector("[data-momentle-root='true']");L&&te(L);
